@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Website Upgrade | Executive Summary</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #111111;
+            --secondary: #666666;
+            --accent: #0066FF;
+            --light: #F8F8F8;
+            --border: #E5E5E5;
+            --success: #00C853;
+            --warning: #FF9800;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #FFFFFF;
+            color: var(--primary);
+            line-height: 1.6;
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            padding: 1rem 2rem;
+        }
+
+        nav .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav .logo {
+            font-weight: 600;
+            font-size: 1.1rem;
+            letter-spacing: -0.5px;
+        }
+
+        nav .logo span {
+            color: var(--secondary);
+            font-weight: 400;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--secondary);
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 8rem 2rem 4rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: var(--light);
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--secondary);
+            margin-bottom: 2rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 700;
+            letter-spacing: -2px;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--secondary);
+            max-width: 600px;
+            line-height: 1.7;
+            margin-bottom: 3rem;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 4rem;
+            margin-top: 2rem;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            letter-spacing: -2px;
+            line-height: 1;
+        }
+
+        .hero-stat-label {
+            font-size: 0.875rem;
+            color: var(--secondary);
+            margin-top: 0.5rem;
+        }
+
+        /* Sections */
+        section {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            font-weight: 700;
+            letter-spacing: -1px;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            font-size: 1.125rem;
+            color: var(--secondary);
+            max-width: 600px;
+            margin-bottom: 3rem;
+        }
+
+        /* Vision Section */
+        .vision {
+            background: var(--light);
+            padding: 6rem 2rem;
+            margin: 0;
+            max-width: 100%;
+        }
+
+        .vision-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .vision-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .vision-card {
+            background: #FFFFFF;
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .vision-card-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--light);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .vision-card h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .vision-card p {
+            font-size: 0.9375rem;
+            color: var(--secondary);
+            line-height: 1.6;
+        }
+
+        /* Timeline Section */
+        .timeline {
+            margin-top: 3rem;
+        }
+
+        .timeline-phase {
+            display: grid;
+            grid-template-columns: 120px 1fr;
+            gap: 2rem;
+            padding: 2rem 0;
+            border-bottom: 1px solid var(--border);
+            align-items: start;
+        }
+
+        .timeline-phase:last-child {
+            border-bottom: none;
+        }
+
+        .phase-number {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--secondary);
+        }
+
+        .phase-weeks {
+            font-size: 0.875rem;
+            color: var(--accent);
+            margin-top: 0.25rem;
+        }
+
+        .phase-content h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .phase-content p {
+            color: var(--secondary);
+            font-size: 0.9375rem;
+            margin-bottom: 1rem;
+        }
+
+        .phase-deliverables {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .deliverable-tag {
+            display: inline-block;
+            padding: 0.375rem 0.75rem;
+            background: var(--light);
+            border-radius: 6px;
+            font-size: 0.8125rem;
+            color: var(--secondary);
+        }
+
+        /* Metrics Section */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .metric-card {
+            padding: 2rem;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-value.accent {
+            color: var(--accent);
+        }
+
+        .metric-value.success {
+            color: var(--success);
+        }
+
+        .metric-label {
+            font-size: 0.875rem;
+            color: var(--secondary);
+        }
+
+        /* Investment Section */
+        .investment {
+            background: var(--primary);
+            color: #FFFFFF;
+            padding: 6rem 2rem;
+            margin: 0;
+            max-width: 100%;
+        }
+
+        .investment-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .investment .section-label {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .investment .section-title {
+            color: #FFFFFF;
+        }
+
+        .investment .section-subtitle {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .investment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .investment-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 12px;
+        }
+
+        .investment-card h3 {
+            font-size: 1rem;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 0.5rem;
+        }
+
+        .investment-card .amount {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .investment-card p {
+            font-size: 0.875rem;
+            color: rgba(255, 255, 255, 0.5);
+            line-height: 1.6;
+        }
+
+        /* AI Section */
+        .ai-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .ai-feature {
+            padding: 2.5rem;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .ai-feature:hover {
+            border-color: var(--accent);
+            box-shadow: 0 4px 24px rgba(0, 102, 255, 0.08);
+        }
+
+        .ai-feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .ai-feature h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .ai-feature p {
+            color: var(--secondary);
+            font-size: 0.9375rem;
+            line-height: 1.7;
+        }
+
+        /* Benefits Section */
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .benefit {
+            text-align: center;
+        }
+
+        .benefit-number {
+            font-size: 4rem;
+            font-weight: 700;
+            letter-spacing: -3px;
+            line-height: 1;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .benefit h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .benefit p {
+            color: var(--secondary);
+            font-size: 0.9375rem;
+        }
+
+        /* CTA Section */
+        .cta {
+            text-align: center;
+            padding: 8rem 2rem;
+            background: var(--light);
+            max-width: 100%;
+        }
+
+        .cta h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            letter-spacing: -1px;
+            margin-bottom: 1rem;
+        }
+
+        .cta p {
+            color: var(--secondary);
+            font-size: 1.125rem;
+            max-width: 500px;
+            margin: 0 auto 2rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: var(--primary);
+            color: #FFFFFF;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Footer */
+        footer {
+            padding: 3rem 2rem;
+            text-align: center;
+            border-top: 1px solid var(--border);
+        }
+
+        footer p {
+            color: var(--secondary);
+            font-size: 0.875rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+
+            .hero-stats {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .timeline-phase {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .benefits-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .ai-features {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Scroll Animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Progress indicator */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: var(--accent);
+            z-index: 1001;
+            transition: width 0.1s;
+        }
+
+        /* Print Styles */
+        @media print {
+            nav, .progress-bar {
+                display: none;
+            }
+            
+            section {
+                page-break-inside: avoid;
+            }
+            
+            .hero {
+                min-height: auto;
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar" id="progressBar"></div>
+    
+    <nav>
+        <div class="nav-content">
+            <div class="logo">Rich Products <span>Malaysia</span></div>
+            <ul>
+                <li><a href="#overview">Overview</a></li>
+                <li><a href="#phases">Phases</a></li>
+                <li><a href="#ai">AI Strategy</a></li>
+                <li><a href="#outcomes">Outcomes</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <span class="hero-badge">Executive Summary</span>
+        <h1>Recipe Website Upgrade Project</h1>
+        <p>A comprehensive digital transformation initiative to modernize Rich Products Malaysia's recipe platform, implementing AI-powered features and establishing industry-leading visibility in both traditional and AI-powered search.</p>
+        
+        <div class="hero-stats">
+            <div class="hero-stat">
+                <div class="hero-stat-number">7</div>
+                <div class="hero-stat-label">Project Phases</div>
+            </div>
+            <div class="hero-stat">
+                <div class="hero-stat-number">22</div>
+                <div class="hero-stat-label">Weeks Timeline</div>
+            </div>
+            <div class="hero-stat">
+                <div class="hero-stat-number">150+</div>
+                <div class="hero-stat-label">Recipes Optimized</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vision Section -->
+    <section class="vision" id="overview">
+        <div class="vision-content">
+            <span class="section-label">Strategic Vision</span>
+            <h2 class="section-title">Transforming Digital Experience</h2>
+            <p class="section-subtitle">Position Rich Products Malaysia as the leading recipe authority in Malaysia's evolving digital landscape.</p>
+            
+            <div class="vision-grid">
+                <div class="vision-card fade-in">
+                    <div class="vision-card-icon">🎯</div>
+                    <h3>Zero Ranking Loss</h3>
+                    <p>Maintain and improve search engine rankings throughout the migration with comprehensive redirect strategy and SEO preservation.</p>
+                </div>
+                <div class="vision-card fade-in">
+                    <div class="vision-card-icon">🤖</div>
+                    <h3>AI-First Approach</h3>
+                    <p>Implement AI-powered search and chatbot features, optimizing for visibility in ChatGPT, Gemini, Perplexity, and emerging AI platforms.</p>
+                </div>
+                <div class="vision-card fade-in">
+                    <div class="vision-card-icon">⚡</div>
+                    <h3>Performance Excellence</h3>
+                    <p>Achieve and maintain Core Web Vitals compliance with sub-2.5s load times and 90+ PageSpeed scores across all devices.</p>
+                </div>
+                <div class="vision-card fade-in">
+                    <div class="vision-card-icon">📈</div>
+                    <h3>Growth Trajectory</h3>
+                    <p>Target 20% year-over-year organic traffic growth with new AI referral channels and enhanced user engagement.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Phases Timeline -->
+    <section id="phases">
+        <span class="section-label">Project Roadmap</span>
+        <h2 class="section-title">Seven-Phase Implementation</h2>
+        <p class="section-subtitle">A structured approach covering migration through continuous optimization.</p>
+
+        <div class="timeline">
+            <!-- Phase 1: Technical SEO (Previously Phase 2) -->
+            <div class="timeline-phase fade-in">
+                <div>
+                    <div class="phase-number">Phase 1</div>
+                    <div class="phase-weeks">Weeks 1–4</div>
+                </div>
+                <div class="phase-content">
+                    <h3>Technical SEO & Migration</h3>
+                    <p>URL structure optimization, 301 redirect implementation, comprehensive schema markup, and Core Web Vitals optimization.</p>
+                    <div class="phase-deliverables">
+                        <span class="deliverable-tag">URL Strategy</span>
+                        <span class="deliverable-tag">Redirect Maps</span>
+                        <span class="deliverable-tag">Schema Markup</span>
+                        <span class="deliverable-tag">Performance Optimization</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 2: UX/UI (Previously Phase 3) -->
+            <div class="timeline-phase fade-in">
+                <div>
+                    <div class="phase-number">Phase 2</div>
+                    <div class="phase-weeks">Weeks 5–8</div>
+                </div>
+                <div class="phase-content">
+                    <h3>UX/UI Design & Development</h3>
+                    <p>User research, wireframing, visual design system, mobile-first development, and WCAG 2.1 AA accessibility compliance.</p>
+                    <div class="phase-deliverables">
+                        <span class="deliverable-tag">User Personas</span>
+                        <span class="deliverable-tag">Wireframes</span>
+                        <span class="deliverable-tag">Design System</span>
+                        <span class="deliverable-tag">Component Library</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 3: Content (Previously Phase 4) -->
+            <div class="timeline-phase fade-in">
+                <div>
+                    <div class="phase-number">Phase 3</div>
+                    <div class="phase-weeks">Weeks 9–10</div>
+                </div>
+                <div class="phase-content">
+                    <h3>Content Migration & QA</h3>
+                    <p>Phased content migration, comprehensive testing (functional, SEO, performance, accessibility), and user acceptance testing.</p>
+                    <div class="phase-deliverables">
+                        <span class="deliverable-tag">Content Migration</span>
+                        <span class="deliverable-tag">QA Testing</span>
+                        <span class="deliverable-tag">UAT</span>
+                        <span class="deliverable-tag">Go/No-Go Criteria</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 4: Launch (Previously Phase 5) -->
+            <div class="timeline-phase fade-in">
+                <div>
+                    <div class="phase-number">Phase 4</div>
+                    <div class="phase-weeks">Week 11</div>
+                </div>
+                <div class="phase-content">
+                    <h3>Launch & Monitoring</h3>
+                    <p>Zero-downtime deployment, real-time monitoring setup, incident response protocols, and post-launch stabilization.</p>
+                    <div class="phase-deliverables">
+                        <span class="deliverable-tag">Launch Execution</span>
+                        <span class="deliverable-tag">Monitoring Stack</span>
+                        <span class="deliverable-tag">Incident Response</span>
+                        <span class="deliverable-tag">Rollback Plan</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 5: AI Infra (Previously Phase 6) -->
+            <div class="timeline-phase fade-in">
+                <div>
+                    <div class="phase-number">Phase 5</div>
+                    <div class="phase-weeks">Weeks 12–16</div>
+                </div>
+                <div class="phase-content">
+                    <h3>AI Infrastructure & Capabilities</h3>
+                    <p>AI-powered semantic search, recipe assistant chatbot, content optimization for AI, and personalization framework.</p>
+                    <div class="phase-deliverables">
+                        <span class="deliverable-tag">AI Search</span>
+                        <span class="deliverable-tag">Chatbot MVP</span>
+                        <span class="deliverable-tag">Personalization</span>
+                        <span class="deliverable-tag">AI Analytics</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 6: AI-EO (Previously Phase 7) -->
+            <div class="timeline-phase fade-in">
+                <div>
+                    <div class="phase-number">Phase 6</div>
+                    <div class="phase-weeks">Weeks 17–22</div>
+                </div>
+                <div class="phase-content">
+                    <h3>AI-EO & GEO Optimization</h3>
+                    <p>Optimization for AI search engines, citation building, platform-specific strategies, and content authority establishment.</p>
+                    <div class="phase-deliverables">
+                        <span class="deliverable-tag">AI-EO Strategy</span>
+                        <span class="deliverable-tag">Citation Tracking</span>
+                        <span class="deliverable-tag">Content Expansion</span>
+                        <span class="deliverable-tag">Entity Optimization</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 7: Ongoing (Previously Phase 8) -->
+            <div class="timeline-phase fade-in">
+                <div>
+                    <div class="phase-number">Phase 7</div>
+                    <div class="phase-weeks">Ongoing</div>
+                </div>
+                <div class="phase-content">
+                    <h3>Optimization & Iteration</h3>
+                    <p>Continuous improvement framework, A/B testing program, competitive intelligence, and innovation pipeline.</p>
+                    <div class="phase-deliverables">
+                        <span class="deliverable-tag">PDCA Framework</span>
+                        <span class="deliverable-tag">A/B Testing</span>
+                        <span class="deliverable-tag">Analytics Program</span>
+                        <span class="deliverable-tag">Annual Planning</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Strategy Section -->
+    <section id="ai">
+        <span class="section-label">Competitive Advantage</span>
+        <h2 class="section-title">AI-Powered Innovation</h2>
+        <p class="section-subtitle">Pioneering AI capabilities that position Rich Products Malaysia ahead of competitors in the emerging AI search landscape.</p>
+
+        <div class="ai-features">
+            <div class="ai-feature fade-in">
+                <div class="ai-feature-icon">🔍</div>
+                <h3>Intelligent Recipe Search</h3>
+                <p>Natural language search powered by semantic understanding. Users can search conversationally—"easy chocolate dessert for beginners"—and receive highly relevant results. Hybrid approach combining vector search with traditional keywords for optimal accuracy.</p>
+            </div>
+
+            <div class="ai-feature fade-in">
+                <div class="ai-feature-icon">💬</div>
+                <h3>Recipe Assistant Chatbot</h3>
+                <p>AI-powered conversational assistant helping users discover recipes, troubleshoot baking problems, and learn about Rich Products. Available 24/7 to guide users through their cooking journey with personalized recommendations.</p>
+            </div>
+
+            <div class="ai-feature fade-in">
+                <div class="ai-feature-icon">🌐</div>
+                <h3>AI Search Engine Visibility</h3>
+                <p>Optimized for citation in ChatGPT, Google Gemini, Perplexity, and Bing Copilot. Structured content, comprehensive schema markup, and answer-first formatting ensure Rich Products appears when users ask AI for recipe help.</p>
+            </div>
+
+            <div class="ai-feature fade-in">
+                <div class="ai-feature-icon">✨</div>
+                <h3>Personalized Experience</h3>
+                <p>ML-powered recommendations that learn user preferences over time. Contextual suggestions based on browsing history, skill level, and seasonal relevance. Creating a unique experience for each visitor.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Metrics Section -->
+    <section id="outcomes">
+        <span class="section-label">Expected Outcomes</span>
+        <h2 class="section-title">Success Metrics</h2>
+        <p class="section-subtitle">Measurable targets aligned with business objectives and industry benchmarks.</p>
+
+        <div class="metrics-grid">
+            <div class="metric-card fade-in">
+                <div class="metric-value accent">+20%</div>
+                <div class="metric-label">Organic Traffic Growth (YoY)</div>
+            </div>
+            <div class="metric-card fade-in">
+                <div class="metric-value accent">90+</div>
+                <div class="metric-label">PageSpeed Score (Mobile)</div>
+            </div>
+            <div class="metric-card fade-in">
+                <div class="metric-value success">99.9%</div>
+                <div class="metric-label">Uptime Target</div>
+            </div>
+            <div class="metric-card fade-in">
+                <div class="metric-value accent">500+</div>
+                <div class="metric-label">Monthly AI Referrals (Year 1)</div>
+            </div>
+            <div class="metric-card fade-in">
+                <div class="metric-value success">&lt;2.5s</div>
+                <div class="metric-label">Page Load Time (LCP)</div>
+            </div>
+            <div class="metric-card fade-in">
+                <div class="metric-value accent">100%</div>
+                <div class="metric-label">Core Web Vitals Pass</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section>
+        <span class="section-label">Business Impact</span>
+        <h2 class="section-title">Strategic Benefits</h2>
+        <p class="section-subtitle">Long-term value creation across multiple dimensions of digital presence.</p>
+
+        <div class="benefits-grid">
+            <div class="benefit fade-in">
+                <div class="benefit-number">01</div>
+                <h3>Market Leadership</h3>
+                <p>First-mover advantage in AI-optimized recipe content in Malaysia</p>
+            </div>
+            <div class="benefit fade-in">
+                <div class="benefit-number">02</div>
+                <h3>Brand Visibility</h3>
+                <p>Presence in AI-generated responses establishes thought leadership</p>
+            </div>
+            <div class="benefit fade-in">
+                <div class="benefit-number">03</div>
+                <h3>User Engagement</h3>
+                <p>AI features increase time on site and return visits</p>
+            </div>
+            <div class="benefit fade-in">
+                <div class="benefit-number">04</div>
+                <h3>Conversion Growth</h3>
+                <p>Better UX and personalization drive product discovery</p>
+            </div>
+            <div class="benefit fade-in">
+                <div class="benefit-number">05</div>
+                <h3>Future-Proofing</h3>
+                <p>Infrastructure ready for voice, AR, and emerging technologies</p>
+            </div>
+            <div class="benefit fade-in">
+                <div class="benefit-number">06</div>
+                <h3>Operational Excellence</h3>
+                <p>Continuous improvement framework ensures sustained performance</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>Rich Products Malaysia — Recipe Website Upgrade Project — Executive Summary</p>
+    </footer>
+
+    <script>
+        // Progress bar
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('progressBar').style.width = scrolled + '%';
+        });
+
+        // Fade in on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Smooth scroll for nav links
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
